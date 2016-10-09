@@ -1,11 +1,11 @@
 {
-  "uuid": "7eb9c3ff-107c-47dc-ab8c-6353dbc0d344",
-  "shortName": "JewishClock",
-  "longName": "Jewish Clock",
+  "uuid": "ef2e3fbe-d926-448b-be9d-671a07749858",
+  "shortName": "JewishTime",
+  "longName": "Jewish Time",
   "capabilities": [ "location" ],
-  "companyName": "Ary Tebeka",
+  "companyName": "Gavriel Fleischer",
   "versionCode": 1,
-  "versionLabel": "1.06",
+  "versionLabel": "1.0",
   "watchapp": {
     "watchface": true
   },
