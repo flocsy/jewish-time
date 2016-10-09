@@ -21,6 +21,10 @@ function fetchUtcOffset(latitude, longitude) {
                           "lat":bigLat,
                           "lon":bigLon,
                           "tz":delta_minutes
+                          }, function(e){
+                            console.log('Message sent successfully: ' + JSON.stringify(e));
+                          }, function(e){
+                            console.log('Message failed: ' + JSON.stringify(e));
                           });
 }
 

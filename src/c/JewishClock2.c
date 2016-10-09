@@ -189,8 +189,14 @@ static void app_message_init(void) {
     app_message_register_inbox_received(in_received_handler);
     app_message_register_inbox_dropped(in_dropped_handler);
     app_message_register_outbox_failed(out_failed_handler);
+
+    // if inbound_message is inbox_size_maximum in Aplite we get this error, and no message arrives later:
+    // [INFO] message_inbox.c:13: app_message_open() called with app_message_inbox_size_maximum().
+    // [INFO] message_inbox.c:16: This consumes 8200 bytes of heap memory, potentially more in the future!
+    // so we'll only allocate half of the max size
+
     // Init buffers
-    const uint32_t inbound_size = app_message_inbox_size_maximum();
+    const uint32_t inbound_size = app_message_inbox_size_maximum() / 2;
     const uint32_t outbound_size = 32;
     app_message_open(inbound_size, outbound_size);
 }
