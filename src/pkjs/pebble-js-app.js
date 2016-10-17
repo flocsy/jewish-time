@@ -1,8 +1,10 @@
+var isEmulator = Pebble.getActiveWatchInfo && Pebble.getActiveWatchInfo().model.indexOf("qemu_platform_") != -1;
+
 function fetchUtcOffset(latitude, longitude) {
     console.log("FETCHING UTC OFFSET");
-    if (true) { // hack to set coordinates in emulator
-      latitude = 31.828200;
-      longitude = 34.683248;
+    if (isEmulator) { // hack to set Jerusalem's coordinates in emulator
+      latitude = 31.77672;
+      longitude = 35.234506;
       console.log("overridden latitude = " + latitude);
       console.log("overridden longitude = " + longitude);
     }
