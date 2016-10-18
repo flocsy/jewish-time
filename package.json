@@ -65,6 +65,12 @@
                     "type": "png"
                 },
                 {
+                    "characterRegex": "[\u00e0-\u00fa]",
+                    "file": "fonts/David-new.ttf",
+                    "name": "FONT_DAVID_NEW_18",
+                    "type": "font"
+                },
+                {
                     "characterRegex": "[A-Za-z0]",
                     "file": "fonts/moon_phases.ttf",
                     "name": "FONT_MOON_PHASES_SUBSET_30",

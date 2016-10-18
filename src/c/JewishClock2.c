@@ -41,7 +41,7 @@ static TextLayer *sunsetLayer;         char sunsetString[]=        "00:00";
 //static TextLayer *hatsotLayer;         char hatsotString[]=        "00:00";
 
 // Fonts
-GFont tinyFont, smallFont, mediumFont, mediumBoldFont, largeFont, moonFont;
+GFont tinyFont, smallFont, mediumFont, mediumBoldFont, largeFont, moonFont, hebFont;
 
 // Positions
 const int screenWidth = 144;
@@ -149,6 +149,24 @@ void updateHebrewDate();
 void updateMoonAndSun();
 void updateZmanim();
 void checkAlerts();
+
+int bIsElbbep;
+
+int initIsElbbep() {
+//    char *arabicUTF8 = "ـه  ـهـ هـ  ه";
+    char *arabicISO88596 = "àç  àçà çà  ç";
+    char *text;
+    strcpy(text, arabicISO88596);
+    GFont *font = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
+    GTextOverflowMode overflow_mode = 0xE5;
+    GSize max_used_size = graphics_text_layout_get_content_size(text, font, GRect(0, 0, 100, 100), overflow_mode, GTextAlignmentRight);
+    bIsElbbep = strcmp(text, arabicISO88596);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "initIsElbbep: dst:%s, src:%s", text, arabicISO88596);
+}
+
+int isElbbep() {
+    return bIsElbbep;
+}
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
     Tuple *tuple = dict_read_first(iter);
@@ -601,6 +619,7 @@ void updateWatch() {
 // ************* TICK HANDLER *****************
 // Handles the system minute-tick, calls appropriate functions above
 static void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "handle_minute_tick");
 //    static int updateCounter = UPDATE_MINUTES;
     currentPblTime = tick_time;
     currentTime = (currentPblTime->tm_hour * 60) + currentPblTime->tm_min;
@@ -649,12 +668,13 @@ static void window_load(Window *window) {
     
     // Define fonts
     tinyFont = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+    hebFont = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_DAVID_NEW_18));
     smallFont = fonts_get_system_font(FONT_KEY_GOTHIC_14);
     mediumFont = fonts_get_system_font(FONT_KEY_GOTHIC_24);
     mediumBoldFont = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
     largeFont = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_ROBOTO_BOLD_SUBSET_49));
     moonFont = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_MOON_PHASES_SUBSET_30));
-    
+  
     // ******************************************
     // Init Layers - top to bottom, left to right
     // ******************************************
@@ -673,7 +693,8 @@ static void window_load(Window *window) {
     initTextLayer(&monthLayer, 0, monthY, screenWidth, 24, kTextColor, GColorClear, GTextAlignmentLeft, tinyFont);
     
     // Hebrew Month
-    initTextLayer(&hMonthLayer, 0, monthY, screenWidth, 24, kTextColor, GColorClear, GTextAlignmentRight, tinyFont);
+//    initTextLayer(&hMonthLayer, 0, monthY, screenWidth, 24, kTextColor, GColorClear, GTextAlignmentRight, tinyFont);
+    initTextLayer(&hMonthLayer, 0, monthY, screenWidth, 24, kTextColor, GColorClear, GTextAlignmentRight, hebFont);
     
     //  Time
     initTextLayer(&timeLayer, 0, timeY, screenWidth, 50, kTextColor, GColorClear, GTextAlignmentCenter, largeFont);
@@ -798,7 +819,9 @@ static void init(void) {
         .load = window_load,
         .unload = window_unload
     });
-    
+
+    initIsElbbep();
+
     // Init time format string
     timeFormat = clock_is_24h_style()?"%R":"%l:%M";
     

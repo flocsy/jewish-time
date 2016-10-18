@@ -35,6 +35,9 @@ char *hebrewMonthNames[14] = {
   "Sh'vat", "Adar", "Nisan", "Iyyar",
   "Sivan", "Tammuz", "Av", "Elul", "Adar I",
   "Adar II"};
+char *hebrewMonthNamesISO88598L[14] = {
+  "éøùú", "ïååùç", "åéìñë", "úáè", "èáù", "øãà", "ïñéð", "øééà", 
+  "ïåéñ", "æåîú", "áà", "ìåìà", "à øãà", "á øãà"}; // he_IL ISO-8859-8-L
 
 /**
  @brief Compute Julian day from Gregorian day, month and year
@@ -252,7 +255,8 @@ hdate_days_from_3744 (int hebrew_year)
 char *
 hdate_get_month_string (int month) {
   if((month >0) && (month <=14)) {
-    return hebrewMonthNames[month-1];
+//    return hebrewMonthNames[month-1];
+    return hebrewMonthNamesISO88598L[month-1];
   } else {
     return "";
   }
