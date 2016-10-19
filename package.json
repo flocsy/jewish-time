@@ -1,20 +1,12 @@
 {
-    "name": "jewishtime",
-    "version": "1.0.0",
     "author": "Gavriel Fleischer",
     "dependencies": {},
-    "keywords": ["jewish", "Hebrew"],
+    "keywords": [
+        "jewish",
+        "Hebrew"
+    ],
+    "name": "jewishtime",
     "pebble": {
-        "sdkVersion": "3",
-        "targetPlatforms": [
-            "aplite",
-            "basalt",
-            "diorite"
-        ],
-        "uuid": "ef2e3fbe-d926-448b-be9d-671a07749858",
-        "watchapp": {
-            "watchface": true
-        },
         "capabilities": [
             "location"
         ],
@@ -65,12 +57,6 @@
                     "type": "png"
                 },
                 {
-                    "characterRegex": "[\u00e0-\u00fa]",
-                    "file": "fonts/David-new.ttf",
-                    "name": "FONT_DAVID_NEW_18",
-                    "type": "font"
-                },
-                {
                     "characterRegex": "[A-Za-z0]",
                     "file": "fonts/moon_phases.ttf",
                     "name": "FONT_MOON_PHASES_SUBSET_30",
@@ -86,8 +72,25 @@
                     "file": "fonts/Roboto-Bold.ttf",
                     "name": "FONT_ROBOTO_BOLD_SUBSET_49",
                     "type": "font"
+                },
+                {
+                    "characterRegex": "[\u00e0-\u00fa]",
+                    "file": "fonts/David-new.ttf",
+                    "name": "FONT_DAVID_NEW_18",
+                    "type": "font"
                 }
             ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "diorite"
+        ],
+        "uuid": "ef2e3fbe-d926-448b-be9d-671a07749858",
+        "watchapp": {
+            "watchface": true
         }
-    }
+    },
+    "version": "1.0.0"
 }

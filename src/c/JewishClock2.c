@@ -150,24 +150,6 @@ void updateMoonAndSun();
 void updateZmanim();
 void checkAlerts();
 
-int bIsElbbep;
-
-int initIsElbbep() {
-//    char *arabicUTF8 = "ـه  ـهـ هـ  ه";
-    char *arabicISO88596 = "àç  àçà çà  ç";
-    char *text;
-    strcpy(text, arabicISO88596);
-    GFont *font = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
-    GTextOverflowMode overflow_mode = 0xE5;
-    GSize max_used_size = graphics_text_layout_get_content_size(text, font, GRect(0, 0, 100, 100), overflow_mode, GTextAlignmentRight);
-    bIsElbbep = strcmp(text, arabicISO88596);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "initIsElbbep: dst:%s, src:%s", text, arabicISO88596);
-}
-
-int isElbbep() {
-    return bIsElbbep;
-}
-
 static void in_received_handler(DictionaryIterator *iter, void *context) {
     Tuple *tuple = dict_read_first(iter);
     while (tuple) {
@@ -819,8 +801,6 @@ static void init(void) {
         .load = window_load,
         .unload = window_unload
     });
-
-    initIsElbbep();
 
     // Init time format string
     timeFormat = clock_is_24h_style()?"%R":"%l:%M";
