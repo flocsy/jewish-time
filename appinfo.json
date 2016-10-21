@@ -1,7 +1,7 @@
 {
   "uuid": "DB2CFD22-122A-4AF5-AAF9-9715AC37EC74",
-  "shortName": "JewishClock",
-  "longName": "Jewish Clock",
+  "shortName": "JewishTime2",
+  "longName": "Jewish Time 2",
   "capabilities": [ "location" ],
   "companyName": "Ary Tebeka",
   "versionCode": 1,
