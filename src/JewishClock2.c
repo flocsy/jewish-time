@@ -28,8 +28,10 @@ static Layer *lineLayer;
 static TextLayer *sunriseLabelLayer;   char zmanHourLabelString[]= "Hour #     ";
 static TextLayer *sunsetLabelLayer;   char nextHourLabelString[]= "Next In:   ";
 static Layer *sunGraphLayer;
-static TextLayer *currentZmanLayer;    char currentZmanString[]=   "Mincha Gedola";
-static TextLayer *EndOfZmanLayer;      char endOfZmanString[]=     "00:00";
+//static TextLayer *currentZmanLayer;
+char currentZmanString[]=   "Mincha Gedola";
+//static TextLayer *EndOfZmanLayer;
+char endOfZmanString[]=     "00:00";
 static TextLayer *zmanHourLayer;       char zmanHourString[]=      "011";
 static TextLayer *nextHourLayer;       char nextHourString[]=      "01:07:00";
 static TextLayer *alertLayer;          char alertString[]=    "SUNSET IN 000mn";
@@ -65,8 +67,8 @@ static int sunHourY;
 // Parameters
 static int kSHOW_ALERTS = 1; // 0 to disable alerts
 static int MINCHA_ALERT = 18;
-static int kBackgroundColor = GColorBlack;
-static int kTextColor = GColorWhite;
+static GColor kBackgroundColor;
+static GColor kTextColor;
 
 // Global variables
 int Jlatitude, Jlongitude;
@@ -107,8 +109,8 @@ GPathInfo sun_path_info = {
 };
 
 // Battery and phone
-GColor background_color = GColorWhite;
-GColor foreground_color = GColorBlack;
+GColor background_color;
+GColor foreground_color;
 GCompOp compositing_mode = GCompOpAssign;
 BitmapLayer *layer_batt_img;
 BitmapLayer *layer_conn_img;
@@ -123,7 +125,7 @@ int charge_percent = 0;
 
 // AppMessage and AppSync
 //static AppSync sync;
-static uint8_t sync_buffer[120];
+//static uint8_t sync_buffer[120];
 
 enum JewishClockKey {
     LATITUDE_KEY = 0x0,
@@ -193,6 +195,7 @@ static void app_message_init(void) {
     app_message_open(inbound_size, outbound_size);
 }
 
+/*
 static void send_cmd(void) {    // send a dummy integer with value 1 to initiate data fetch from the .js
   Tuplet value = TupletInteger(1, 1);
   DictionaryIterator *iter;
@@ -204,6 +207,7 @@ static void send_cmd(void) {    // send a dummy integer with value 1 to initiate
   dict_write_end(iter);
   app_message_outbox_send();
 }
+*/
 
 // ******************** Utility functions ****************
 
@@ -781,7 +785,9 @@ static void init(void) {
     
     window = window_create();
     window_set_background_color(window, GColorBlack);
+#if defined(PBL_SDK_2) 
     window_set_fullscreen(window, true);
+#endif
     window_set_window_handlers(window, (WindowHandlers) {
         .load = window_load,
         .unload = window_unload
